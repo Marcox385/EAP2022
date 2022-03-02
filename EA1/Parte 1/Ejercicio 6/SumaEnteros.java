@@ -10,10 +10,25 @@ public class SumaEnteros {
         return false;
     }
 
-    public static void main(String[] args) {
-        int[] A = {1, 4, 5, 7, 9, 12, 13};
-        int x = 16;
+    public static boolean SumaEnteros2(int[] nums, int x) {
+        int l = 0, r = nums.length - 1, sumHolder;
 
-        System.out.println(SumaEnteros1(A,x));
+        while (l != r) {
+            System.out.printf("L: %d; R: %d\n",l, r);
+            sumHolder = nums[l] + nums[r];
+
+            if (sumHolder > x) r--;
+            else if (sumHolder < x) l++;
+            else return true;
+        }
+
+        return false;
+    }
+
+    public static void main(String[] args) {
+        int[] A = {1,3,4,5,7,10,11};//{1, 4, 5, 7, 9, 12, 13};
+        int x = 9;
+
+        System.out.println(SumaEnteros2(A,x));
     }
 }

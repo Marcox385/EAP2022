@@ -3,7 +3,6 @@ package Parte3;
 public class prueba {
 
     public static boolean checkSortedArr(int[] arr, boolean asc) {
-
         for (int i = 0; i < arr.length - 1; i++) {
             if ((asc && arr[i] > arr[i + 1]) || (!asc && arr[i] < arr[i + 1])) {
                 return false;
