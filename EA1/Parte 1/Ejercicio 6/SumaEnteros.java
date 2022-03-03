@@ -26,7 +26,7 @@ public class SumaEnteros {
     }
 
     public static void main(String[] args) {
-        int[] A = {1,3,4,5,7,10,11};//{1, 4, 5, 7, 9, 12, 13};
+        int[] A = {1,3,4,5,7,10,11}; 
         int x = 9;
 
         System.out.println(SumaEnteros2(A,x));

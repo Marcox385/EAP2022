@@ -1,5 +1,3 @@
-package Parte4;
-
 public class Heapsort {
     private static <T extends Comparable<? super T>> boolean greaterThan(T a, T b) {
        return (a.compareTo(b) == 1) ? true : false;

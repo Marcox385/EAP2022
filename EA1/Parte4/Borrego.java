@@ -1,5 +1,3 @@
-package Parte4;
-
 public class Borrego implements Comparable<Borrego> {
     private int kilos;
     private String nombre;
@@ -18,10 +16,15 @@ public class Borrego implements Comparable<Borrego> {
 
     // Minimizado a ternario
     public int compareTo(Borrego borrego) {
-        return (this.kilos > borrego.kilos) ? 1 :
-        (this.kilos < borrego.kilos) ? -1 : 0;
+        // return (this.kilos > borrego.kilos) ? 1 :
+        // (this.kilos < borrego.kilos) ? -1 : 0;
 
         // Previo a inciso 4, se debe implementar comparación
         // de cadenas (nombre)
+
+        return (this.kilos > borrego.kilos) ? 1 :
+               (this.kilos < borrego.kilos) ? -1 : 
+               (this.nombre.compareTo(borrego.nombre) > 0) ? 1 :
+               (this.nombre.compareTo(borrego.nombre) < 0) ? -1 : 0;
     }
 }
