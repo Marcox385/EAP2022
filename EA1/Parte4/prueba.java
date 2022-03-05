@@ -1,42 +1,40 @@
-public class prueba {
+public class prueba { // driver para probar heapSort junto con Borrego
+    static float promedioMovimientos, promedioComparaciones;
+
     public static <T> void printArr(T[] arr) {
         for (T elem : arr) System.out.println(elem);
     }
 
+    public static Borrego generarBorrego(int min, int max) { // mínimo y máximo de edad (inclusivo)
+        return new Borrego((int)(min + (max - min + 1) * Math.random()), "genérico");
+    }
+
+    public static Borrego generarBorrego(int max) { // valore desde 0 hasta máximo (inclusivo) para edad
+        return new Borrego((int)((max + 1) * Math.random()), "genérico");
+    }
+
+    public static void procesarArreglo(Borrego[][] borregos, int n) {
+        for (int i = 0; i < n / 10; i++) {
+            for (int j = 0; j < n; j++) {
+                borregos[i][j] = generarBorrego(20);
+            }
+            Heapsort.heapsort(borregos[i]);
+            promedioMovimientos += Heapsort.movimientos;
+            promedioComparaciones += Heapsort.comparaciones;
+        }
+    }
+
     public static void main(String[] args) {
-        // Borrego Ye = new Borrego(44, "Kanye West");
-        // Borrego Bunny = new Borrego(27, "Benito");
-        // Borrego Edgar = new Borrego(20, "Edgar");
-        // Borrego Carlos = new Borrego(20, "Carlos");
-        // Borrego Cordero = new Borrego(21, "Marco");
-        // Borrego[] borregos = {Ye, Bunny, Carlos, Edgar, Cordero};
+        for (int n = 1000; n <= 5000; n += 10) {
+            promedioMovimientos = 0; promedioComparaciones = 0;
 
-        // Borrego[] borregos = {
-        //     new Borrego(20, "C"), new Borrego(20, "A"),
-        //     new Borrego(20, "B"), new Borrego(20, "D"),
-        //     new Borrego(20, "F"), new Borrego(20, "E")
-        // };
+            Borrego[][] borregos = new Borrego[n / 10][n];
+            
+            procesarArreglo(borregos, n);
 
-        // Integer[] borregos = {5, 8, 7, 9, 1, 3};
+            promedioMovimientos /= (n / 10); promedioComparaciones /= (n/10);
 
-        // Borrego[] borregos = {
-        //     new Borrego(21, "C"), new Borrego(23, "A"),
-        //     new Borrego(23, "B"), new Borrego(25, "D"),
-        //     new Borrego(23, "F"), new Borrego(22, "E")
-        // };
-
-        Borrego[] borregos = {
-            new Borrego(21, "C"), new Borrego(21, "A"),
-            new Borrego(21, "B"), new Borrego(21, "D"),
-            new Borrego(21, "F"), new Borrego(21, "E")
-        };
-
-        System.out.println("Antes de sort");
-        printArr(borregos);
-
-        Heapsort.heapsort(borregos);
-
-        System.out.println("\nDespués de sort");
-        printArr(borregos);
+            System.out.printf("%d\t%.1f\t%d\t%.1f\n", n, promedioMovimientos, n, promedioComparaciones);
+        }
     }
 }

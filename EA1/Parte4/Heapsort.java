@@ -1,6 +1,9 @@
-public class Heapsort {
+public class Heapsort { // modificado para conteo
+    public static int movimientos, comparaciones;
+
     private static <T extends Comparable<? super T>> boolean greaterThan(T a, T b) {
-       return (a.compareTo(b) == 1) ? true : false;
+        comparaciones++;
+        return (a.compareTo(b) == 1) ? true : false;
     }
 
     private static int left(int k) { return (2*k) + 1; }
@@ -8,10 +11,11 @@ public class Heapsort {
     private static int right(int k) { return (2*k) + 2; }
 
     private static <T extends Comparable<? super T>> void swap(T a[], int A, int B) {
+        movimientos += 3;
         T temp = a[A]; a[A] = a[B]; a[B] = temp;
     }
 
-    private static <T extends Comparable<? super T>> void buildMaxHeap(T a[]) { // {5, 8, 7, 9, 1, 3}
+    private static <T extends Comparable<? super T>> void buildMaxHeap(T a[]) {
         for (int root = (int)Math.floor(a.length/2); root >= 0; root--) {
             maxHeapify(a, root, a.length);
         }
@@ -31,6 +35,7 @@ public class Heapsort {
     }
 
     public static <T extends Comparable<? super T>> void heapsort(T a[]) {
+        movimientos = 0; comparaciones = 0;
         buildMaxHeap(a);
 
         for (int heapSize = a.length; heapSize > 1; heapSize--) {

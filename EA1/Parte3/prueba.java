@@ -35,25 +35,18 @@ public class prueba {
         return arr;
     }
 
-
     public static void showBubbleSort(int[] arr) {
         System.out.println("Arreglo original: "); printIntArr(arr);
         BubbleSort.sort(arr);
         System.out.println("\nArreglo ordenado: "); printIntArr(arr);
-        System.out.println(BubbleSort.n);
     }
 
     public static void main(String[] args) {
-        // int[] arr = {3, 1, 2, 5, 4, 8, 7, 6};
-        int[] arr = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
-        showBubbleSort(arr);
-
-        // printIntArr(generateRangeArr(1, 10));
-
-        // showBubbleSort(generateRandArr(-100, 100, 40));
-
-        // int[] arr = generateRandArr(10, 1000, 40);
-        // showBubbleSort(arr);
-        // System.out.println("\n" + checkSortedArr(arr, true));
+        for (int n = 1000; n <= 5000; n+= 100) {
+            int[] muestra = generateRandArr(-n, n, n);
+            BubbleSort.sort(muestra);
+            System.out.printf("%d\t%d\t%d\t%d\n",
+                n, BubbleSort.comparaciones, n, BubbleSort.movimientos);
+        }
     }
 }
