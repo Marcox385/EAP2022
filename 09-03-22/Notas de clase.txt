@@ -1,0 +1,12 @@
+Regla general para algoritmos divide y vencerás
+T(n) = División de trabajo + Vencer + Mezcla
+
+
+Búsqueda binaria ---> T(n) = d + T(n/2) ... d + d + T(n/4) ... d + d + d + T(n/8)
+                      1 = n / m ... m = n ... 2^x = n ... x = log_2(n)
+                      ... T(n) = d * log_2(n) ∈ O(log(n)) para el peor caso
+; Búsqueda binaria ∈ Ω(1) para el mejor caso
+
+
+Mediana de un arreglo (considerando quicksort) ---> T(n) = d*n + T(n/2) ... d * n + d * n/2 + d * n/4 + d * n/8 + .. + d * n/n
+                                                         = d(Σn) = d * 2n = d * n para el peor caso
