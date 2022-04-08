@@ -1,41 +1,28 @@
+import java.util.ArrayList;
 import java.util.List;
 
-public class ABB {
-    private class Node {
-        public T key;
-        public Node left = null, right = null, parent = null;
+public class ABB<T extends Comparable<? super T>> extends CheckBST {
 
-        public Node(T key) {
-            this.key = key;
-        }
-
-        public String toString() {
-            return this.key.toString();
-        }
+    public ABB(Node<T> root) {
+        super(root);
     }
 
-    //TODO
-    // public static boolean existsPath(Node root, int x) {
-    //     if (root == null) return false;
+    private boolean countOdd(Node<Integer> node, int goal, int count) {
+        if (node.key % 2 != 0) count++;
 
-    //     boolean lPath, rPath;
+        if (node.left == null && node.right == null) {
+            if (count == goal) return true;
+            else return false;
+        }
 
-    //     if (root.left != null) lPath = existsPath(root.left, x);
-    //     if (root.right != null) rPath = existsPath(root.right, x);
-
-    //     if (root.left == null && root.right == null) return lDepth + 1;
-    //     else return rDepth + 1;
-    // }
-
-    public static boolean isBST(Node root, int min, int max) {
-        if (root == null) return true;
-
-        if (root.key < min || root.key > max) return false;
-        
-        return isBST(root.left, min, root.key - 1) && isBST(root.right, root.key + 1, max);
+        return countOdd(node.left, goal, count) || countOdd(node.right, goal, count);
     }
 
-    static int depthBST(Node root) {
+    public boolean existsPath(Node<Integer> root, int goal) {
+        return countOdd(root, goal, 0);
+    }
+
+    public int depthBST(Node root) {
         if (root == null) return -1;
 
         int lDepth = depthBST(root.left);
@@ -45,31 +32,31 @@ public class ABB {
         else return rDepth + 1;
     }
 
-    public static List<Node> listLevel(Node root, int lvl) {
-        if (root == null) return null;
-        if (lvl == 1) return new List<Node>(root);
-
-        List<Node> currLvl = new List<Node>();
-        currLvl.add(listLevel(root.left, lvl - 1));
-        currLvl.add(listLevel(root.right, lvl - 1));
+    private void getNodesOnLevel(Node<T> node, int level, List<T> list) {
+        if (node == null) return;
+        if (level == 0) {
+            list.add(node.key);
+        } else {
+            getNodesOnLevel(node.left, level - 1, list);
+            getNodesOnLevel(node.right, level - 1, list);
+        }
     }
 
-    public static List<List<Node>> getNodeListPerLevel(Node root) {
+    private List<T> getNodesOnLevel(Node<T> root, int level) {
+        List<T> list = new ArrayList<>();
+        getNodesOnLevel(root, level, list);
+        return list;
+    }
+
+    public List<List<Node>> getNodeListPerLevel(Node root) {
         int depth = depthBST(root);
 
-        List<List<Node>> res = new List<List<Node>>();
+        List<List<Node>> res = new ArrayList<>(depth);
         
-        for (int i = 1; i <= depth; i++) {
-            res.add(listLevel(root, i));
+        for (int i = 0; i <= depth; i++) {
+            res.add(getNodesOnLevel(root, i));
         }
 
         return res;
-    }
-    
-    public static void main(String[] args) {
-        // Node n = null;
-        // isBST(n, Integer.MIN_VALUE, Integer.MAX_VALUE);
-
-        List<List<Node>> nodeList = getNodeListPerLevel(root);
     }
 }
